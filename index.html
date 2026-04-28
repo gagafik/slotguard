@@ -11,11 +11,65 @@ window.addEventListener('click', function(e) {
   if (text.includes('privacy') || href.includes('privacy')) {
     e.preventDefault();
     window.open('https://gagafik.github.io/slotguard/privacy', '_blank');
-  } else if (text.includes('terms') || href.includes('terms')) {
+    return;
+  }
+  if (text.includes('terms') || href.includes('terms')) {
     e.preventDefault();
     window.open('https://gagafik.github.io/slotguard/terms', '_blank');
+    return;
+  }
+  if (href.startsWith('mailto:') && !href.includes('gagafik@gmail.com')) {
+    e.preventDefault();
+    window.location.href = 'mailto:gagafik@gmail.com';
   }
 }, true);
+
+function _fixSlotGuardDom() {
+  document.querySelectorAll('a').forEach(function(a) {
+    var href = a.getAttribute('href') || '';
+    var text = a.textContent.trim();
+    if (href.startsWith('mailto:')) {
+      a.setAttribute('href', 'mailto:gagafik@gmail.com');
+    }
+    if (/^[a-z0-9._%+-]+@[a-z0-9.-]+[.][a-z]{2,}$/i.test(text)) {
+      a.textContent = 'gagafik@gmail.com';
+      a.setAttribute('href', 'mailto:gagafik@gmail.com');
+    }
+  });
+  document.querySelectorAll('p, span, div, li, td').forEach(function(el) {
+    if (el.children.length === 0) {
+      var t = el.textContent.trim();
+      if (/^[a-z0-9._%+-]+@[a-z0-9.-]+[.][a-z]{2,}$/i.test(t) && t !== 'gagafik@gmail.com') {
+        el.textContent = 'gagafik@gmail.com';
+      }
+    }
+  });
+  var demoEl = null, installEl = null;
+  var els = document.querySelectorAll('a, button');
+  for (var i = 0; i < els.length; i++) {
+    var t = (els[i].textContent || '').trim();
+    if (!demoEl && /^(live demo|demo|try demo)$/i.test(t)) demoEl = els[i];
+    if (!installEl && /^(install|install free|add to forms|get started)$/i.test(t)) installEl = els[i];
+  }
+  if (demoEl && installEl) {
+    var demoColor = window.getComputedStyle(demoEl).color;
+    installEl.style.setProperty('color', demoColor, 'important');
+  }
+}
+
+(function() {
+  var attempts = 0;
+  var id = setInterval(function() {
+    attempts++;
+    _fixSlotGuardDom();
+    if (attempts >= 40) clearInterval(id);
+  }, 300);
+  window.addEventListener('load', function() {
+    setTimeout(_fixSlotGuardDom, 200);
+    setTimeout(_fixSlotGuardDom, 800);
+    setTimeout(_fixSlotGuardDom, 2000);
+  });
+})();
 </script>
   <title>SlotGuard — Auto-close Google Forms when slots fill up</title>
   <style>
