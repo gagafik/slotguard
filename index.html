@@ -44,6 +44,16 @@ function _fixSlotGuardDom() {
       a.setAttribute('href', 'https://gagafik.github.io/slotguard/terms');
     }
   });
+  // Ensure real privacy/terms links are always in the DOM for crawlers
+  var legalDiv = document.getElementById('__static_legal');
+  if (!legalDiv && document.body) {
+    legalDiv = document.createElement('div');
+    legalDiv.id = '__static_legal';
+    legalDiv.style.cssText = 'position:fixed;bottom:8px;left:8px;z-index:99999;font-size:11px;';
+    legalDiv.innerHTML = '<a href="https://gagafik.github.io/slotguard/privacy" style="color:#999;text-decoration:none;margin-right:10px;">Privacy Policy</a>' +
+                         '<a href="https://gagafik.github.io/slotguard/terms" style="color:#999;text-decoration:none;">Terms of Service</a>';
+    document.body.appendChild(legalDiv);
+  }
   document.querySelectorAll('p, span, div, li, td').forEach(function(el) {
     if (el.children.length === 0) {
       var t = el.textContent.trim();
@@ -112,6 +122,10 @@ function _fixSlotGuardDom() {
   </svg>
 </div>
   <div id="__bundler_loading">Unpacking...</div>
+<div id="__static_legal" style="position:fixed;bottom:8px;left:8px;z-index:1;font-size:11px;line-height:1;">
+  <a href="https://gagafik.github.io/slotguard/privacy" style="color:#999;text-decoration:none;margin-right:10px;">Privacy Policy</a>
+  <a href="https://gagafik.github.io/slotguard/terms" style="color:#999;text-decoration:none;">Terms of Service</a>
+</div>
 
   <script>
     
