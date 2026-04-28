@@ -54,6 +54,97 @@ function _fixSlotGuardDom() {
                          '<a href="https://gagafik.github.io/slotguard/terms" style="color:#999;text-decoration:none;">Terms of Service</a>';
     document.body.appendChild(legalDiv);
   }
+
+  // Fix FAQ answer about free plan
+  document.querySelectorAll('p, div, span').forEach(function(el) {
+    if (el.children.length === 0 && el.textContent.includes('We may introduce a Pro tier later')) {
+      el.textContent = 'The free plan lets you add up to 5 slot limits per form. Upgrade to SlotGuard Pro for unlimited slot limits across unlimited forms — starting at $4/month.';
+    }
+  });
+
+  // Inject pricing section before FAQ if not already injected
+  if (!document.getElementById('__slotguard_pricing')) {
+    var faqEl = null;
+    document.querySelectorAll('*').forEach(function(el) {
+      if (!faqEl && el.children.length === 0 && /Common questions/i.test(el.textContent)) {
+        faqEl = el;
+      }
+    });
+
+    var cards = [
+      {
+        label: 'Free', price: '$0', period: 'forever',
+        features: ['Up to 5 slot limits per form', 'MC, Checkbox, Dropdown support', 'Email alerts at 75%, 90%, 100%'],
+        cta: 'Install free', href: '#install',
+        dark: false, badge: ''
+      },
+      {
+        label: 'Pro Monthly', price: '$4', period: 'per month',
+        features: ['Unlimited slot limits', 'Unlimited forms', 'Priority support'],
+        cta: 'Get Pro', href: 'https://gagafik.gumroad.com/l/slotguard',
+        dark: false, badge: ''
+      },
+      {
+        label: 'Pro Yearly', price: '$25', period: 'per year — save 48%',
+        features: ['Unlimited slot limits', 'Unlimited forms', 'Priority support'],
+        cta: 'Get Pro', href: 'https://gagafik.gumroad.com/l/slotguard',
+        dark: true, badge: 'Best value'
+      },
+      {
+        label: 'Pro 2-Year', price: '$40', period: '2 years — save 58%',
+        features: ['Unlimited slot limits', 'Unlimited forms', 'Priority support'],
+        cta: 'Get Pro', href: 'https://gagafik.gumroad.com/l/slotguard',
+        dark: false, badge: ''
+      }
+    ];
+
+    function makeCard(c) {
+      var bg = c.dark ? 'var(--ink,#1C1B19)' : 'rgba(255,255,255,0.5)';
+      var border = c.dark ? '2px solid var(--ink,#1C1B19)' : '1.5px solid rgba(0,0,0,0.12)';
+      var textMain = c.dark ? 'var(--bg,#F5F1EB)' : 'var(--ink,#1C1B19)';
+      var textSub = c.dark ? 'rgba(255,255,255,0.55)' : '#666';
+      var textFeat = c.dark ? 'rgba(255,255,255,0.85)' : '#444';
+      var btnBg = c.dark ? 'var(--bg,#F5F1EB)' : (c.label === 'Free' ? 'transparent' : 'var(--ink,#1C1B19)');
+      var btnColor = c.dark ? 'var(--ink,#1C1B19)' : (c.label === 'Free' ? 'var(--ink,#1C1B19)' : 'var(--bg,#F5F1EB)');
+      var btnBorder = (c.label === 'Free') ? '1.5px solid rgba(0,0,0,0.2)' : 'none';
+      var target = c.href.startsWith('http') ? ' target="_blank"' : '';
+      var badgeHtml = c.badge ? ('<div style="position:absolute;top:-12px;left:20px;background:#C84B1A;color:#fff;font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:4px 10px;border-radius:999px;">' + c.badge + '</div>') : '';
+      var featHtml = c.features.map(function(f) {
+        return '<li>✓  ' + f + '</li>';
+      }).join('');
+      return '<div style="border:' + border + ';border-radius:16px;padding:28px 24px;background:' + bg + ';position:relative;">' +
+        badgeHtml +
+        '<div style="font-size:13px;font-weight:600;letter-spacing:.05em;text-transform:uppercase;margin-bottom:12px;color:' + textMain + ';">' + c.label + '</div>' +
+        '<div style="font-size:36px;font-weight:700;color:' + textMain + ';margin-bottom:4px;">' + c.price + '</div>' +
+        '<div style="font-size:13px;color:' + textSub + ';margin-bottom:20px;">' + c.period + '</div>' +
+        '<ul style="list-style:none;padding:0;margin:0 0 24px;font-size:14px;color:' + textFeat + ';line-height:2;">' + featHtml + '</ul>' +
+        '<a href="' + c.href + '"' + target + ' style="display:block;text-align:center;padding:10px;border-radius:8px;background:' + btnBg + ';border:' + btnBorder + ';font-size:13px;font-weight:600;color:' + btnColor + ';text-decoration:none;">' + c.cta + '</a>' +
+        '</div>';
+    }
+
+    var pricing = document.createElement('section');
+    pricing.id = '__slotguard_pricing';
+    pricing.style.cssText = 'width:100%;padding:80px 24px;background:var(--bg,#F5F1EB);box-sizing:border-box;';
+    pricing.innerHTML =
+      '<div style="max-width:960px;margin:0 auto;">' +
+        '<div style="font-size:12px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:#C84B1A;margin-bottom:16px;">● PRICING</div>' +
+        '<h2 style="font-size:clamp(32px,5vw,52px);font-weight:700;color:var(--ink,#1C1B19);margin:0 0 48px;line-height:1.1;font-family:Georgia,serif;">Simple, honest pricing.</h2>' +
+        '<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:16px;">' +
+          cards.map(makeCard).join('') +
+        '</div>' +
+      '</div>';
+
+    if (faqEl) {
+      var anchor = faqEl;
+      for (var i = 0; i < 8; i++) {
+        if (anchor.parentElement && anchor.parentElement !== document.body) anchor = anchor.parentElement;
+        else break;
+      }
+      anchor.parentElement.insertBefore(pricing, anchor);
+    } else {
+      document.body.appendChild(pricing);
+    }
+  }
   document.querySelectorAll('p, span, div, li, td').forEach(function(el) {
     if (el.children.length === 0) {
       var t = el.textContent.trim();
