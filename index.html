@@ -130,12 +130,15 @@ function _fixSlotGuardDom() {
       '</div>';
 
     if (faqEl) {
-      // Walk up until we're a direct child of body
+      // Walk up until we find the sections container (parent with 2+ children)
       var anchor = faqEl;
-      while (anchor.parentElement && anchor.parentElement !== document.body) {
+      while (anchor.parentElement &&
+             anchor.parentElement !== document.body &&
+             anchor.parentElement.children.length < 2) {
         anchor = anchor.parentElement;
       }
-      document.body.insertBefore(pricing, anchor);
+      // anchor is now a direct child of the sections container — insert pricing before it
+      anchor.parentElement.insertBefore(pricing, anchor);
     } else {
       document.body.appendChild(pricing);
     }
