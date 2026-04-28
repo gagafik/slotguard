@@ -58,7 +58,7 @@ function _fixSlotGuardDom() {
   // Fix FAQ answer about free plan
   document.querySelectorAll('p, div, span').forEach(function(el) {
     if (el.children.length === 0 && el.textContent.includes('We may introduce a Pro tier later')) {
-      el.textContent = 'The free plan lets you add up to 5 slot limits per form. Upgrade to SlotGuard Pro for unlimited slot limits across unlimited forms — starting at $4/month.';
+      el.textContent = 'Yes. The free plan supports 1 form per month with unlimited slot limits on that form. Upgrade to SlotGuard Pro for unlimited forms — starting at $4/month.';
     }
   });
 
@@ -74,7 +74,7 @@ function _fixSlotGuardDom() {
     var cards = [
       {
         label: 'Free', price: '$0', period: 'forever',
-        features: ['Up to 5 slot limits per form', 'MC, Checkbox, Dropdown support', 'Email alerts at 75%, 90%, 100%'],
+        features: ['1 form per month', 'Unlimited slot limits on that form', 'Email alerts at 75%, 90%, 100%'],
         cta: 'Install free', href: '#install',
         dark: false, badge: ''
       },
