@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Privacy Policy — SlotGuard</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif;
+      font-size: 16px;
+      line-height: 1.7;
+      color: #1a1a1a;
+      background: #f9f9f7;
+      padding: 40px 20px 80px;
+    }
+    .container { max-width: 720px; margin: 0 auto; background: #fff; border-radius: 12px; padding: 48px 56px; box-shadow: 0 1px 4px rgba(0,0,0,0.08); }
+    .logo { font-size: 20px; font-weight: 700; color: #1a1a1a; margin-bottom: 32px; display: inline-block; text-decoration: none; }
+    .logo span { color: #e05c2a; }
+    h1 { font-size: 28px; font-weight: 700; margin-bottom: 8px; }
+    .last-updated { font-size: 14px; color: #666; margin-bottom: 40px; }
+    h2 { font-size: 18px; font-weight: 600; margin: 36px 0 12px; }
+    p { margin-bottom: 14px; color: #333; }
+    ul { margin: 0 0 14px 20px; color: #333; }
+    ul li { margin-bottom: 6px; }
+    a { color: #2563eb; text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    .back { display: inline-block; margin-bottom: 28px; font-size: 14px; color: #666; }
+    @media (max-width: 600px) { .container { padding: 28px 24px; } }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <a class="logo" href="/">Slot<span>Guard</span></a>
+    <h1>Privacy Policy</h1>
+    <p class="last-updated">Last updated: April 28, 2025</p>
+
+    <p>SlotGuard ("we", "our", or "us") is a Google Forms™ Add-on that automatically limits and closes form options when slots fill up. This Privacy Policy explains what data we access, how we use it, and your rights.</p>
+
+    <h2>1. Data We Access</h2>
+    <p>SlotGuard requests the following Google OAuth scopes to function:</p>
+    <ul>
+      <li><strong>Google Forms</strong> (<code>auth/forms</code>) — to read form questions and remove filled options from your forms.</li>
+      <li><strong>Google Sheets</strong> (<code>auth/spreadsheets</code>) — to store slot configuration and an event log in a spreadsheet created in your Google Drive.</li>
+      <li><strong>Script triggers</strong> (<code>auth/script.scriptapp</code>) — to register an onFormSubmit trigger that runs when a response is submitted.</li>
+      <li><strong>Email address</strong> (<code>auth/userinfo.email</code>) — to identify your account for license management.</li>
+      <li><strong>External requests</strong> (<code>auth/script.external_request</code>) — to validate your license key with our billing provider (LemonSqueezy).</li>
+      <li><strong>Send email</strong> (<code>auth/script.send_mail</code>) — to send optional alert emails when a slot reaches 75%, 90%, or 100% capacity.</li>
+    </ul>
+
+    <h2>2. How We Use Your Data</h2>
+    <p>All data accessed through Google APIs is used solely to provide the SlotGuard service:</p>
+    <ul>
+      <li>Form content is read only to identify questions and options, and to remove full options.</li>
+      <li>A configuration spreadsheet is created in <strong>your own Google Drive</strong> — we never access or store it on our servers.</li>
+      <li>Your email address is used only to associate a license key with your account.</li>
+      <li>Alert emails are sent only to the email address you provide in the add-on settings.</li>
+    </ul>
+    <p>We do not sell, rent, or share your data with third parties except as required to operate the service (e.g., license validation with LemonSqueezy).</p>
+
+    <h2>3. Data Storage</h2>
+    <p>SlotGuard stores the following data locally in your Google account using Google Apps Script's PropertiesService:</p>
+    <ul>
+      <li>License key status</li>
+      <li>Onboarding completion flag</li>
+      <li>Form trigger IDs</li>
+      <li>Freemium usage counter (form IDs used in the current calendar month)</li>
+    </ul>
+    <p>This data is stored in your Google account and is not transmitted to our servers.</p>
+    <p>Slot configuration data (form IDs, question IDs, option text, slot counts) is stored in a Google Spreadsheet created in your own Google Drive.</p>
+
+    <h2>4. Google API Services</h2>
+    <p>SlotGuard's use of Google APIs is limited to what is necessary to provide the service described above. Our use and transfer of information received from Google APIs adheres to the <a href="https://developers.google.com/terms/api-services-user-data-policy" target="_blank">Google API Services User Data Policy</a>, including the Limited Use requirements.</p>
+
+    <h2>5. Third-Party Services</h2>
+    <p>We use <a href="https://www.lemonsqueezy.com" target="_blank">LemonSqueezy</a> for payment processing and license key management. When you purchase SlotGuard Pro, your payment data is handled directly by LemonSqueezy under their own <a href="https://www.lemonsqueezy.com/privacy" target="_blank">Privacy Policy</a>. We receive only a license key status (valid/invalid) from their API.</p>
+
+    <h2>6. Data Retention and Deletion</h2>
+    <p>You can delete all SlotGuard data at any time by using the "Clear all data" button in the add-on's Account tab. This will:</p>
+    <ul>
+      <li>Delete all form submission triggers created by SlotGuard</li>
+      <li>Remove all stored settings and license information</li>
+    </ul>
+    <p>The configuration spreadsheet in your Google Drive can be deleted manually from Google Drive.</p>
+
+    <h2>7. Children's Privacy</h2>
+    <p>SlotGuard is not directed at children under the age of 13. We do not knowingly collect personal information from children.</p>
+
+    <h2>8. Changes to This Policy</h2>
+    <p>We may update this Privacy Policy from time to time. The "Last updated" date at the top of this page will reflect any changes. Continued use of SlotGuard after changes are posted constitutes your acceptance of the updated policy.</p>
+
+    <h2>9. Contact Us</h2>
+    <p>If you have questions about this Privacy Policy, please contact us at:</p>
+    <p><a href="mailto:gagafik@gmail.com">gagafik@gmail.com</a></p>
+
+    <p style="margin-top:40px;font-size:13px;color:#999;">Google Forms™ is a trademark of Google LLC. SlotGuard is not affiliated with or endorsed by Google LLC.</p>
+  </div>
+</body>
+</html>
