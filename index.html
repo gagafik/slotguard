@@ -17,6 +17,23 @@
       This page requires JavaScript to display.
     </div>
   </noscript>
+  <script>
+    // Intercept Privacy / Terms clicks after React renders.
+    // document-level listeners survive documentElement.replaceWith().
+    document.addEventListener('click', function(e) {
+      var el = e.target;
+      while (el && el.tagName !== 'A') el = el.parentElement;
+      if (!el) return;
+      var text = (el.textContent || '').trim().toLowerCase();
+      if (text === 'privacy' || text === 'privacy policy') {
+        e.preventDefault();
+        window.open('https://gagafik.github.io/slotguard/privacy', '_blank');
+      } else if (text === 'terms' || text === 'terms of service') {
+        e.preventDefault();
+        window.open('https://gagafik.github.io/slotguard/terms', '_blank');
+      }
+    }, true);
+  </script>
 <script type="text/javascript" nonce="e06c5f2380e7467a8886093d192" src="//local.adguard.org?ts=1777319429347&amp;type=content-script&amp;dmn=claude.ai&amp;url=https%3A%2F%2Fclaude.ai%2Fdesign%2Fv1%2Fdesign%2Fprojects%2F019dd06f-a57b-7ac3-9ec9-caec0ce3f205%2Fdownload%3Fpath%3DSlotGuard.standalone.html&amp;app=msedge.exe&amp;css=2&amp;js=1&amp;rel=1&amp;rji=1&amp;sbe=1"></script><script type="text/javascript" nonce="e06c5f2380e7467a8886093d192" src="//local.adguard.org?ts=1777319429347&amp;name=AdGuard%20Extra&amp;name=AdGuard%20Popup%20Blocker&amp;type=user-script"></script></head>
 <body>
   <div id="__bundler_thumbnail">
