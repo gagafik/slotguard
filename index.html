@@ -44,12 +44,12 @@ function _fixSlotGuardDom() {
       }
     }
   });
-  var demoEl = null, installEl = null;
+  var demoEl = null;
+  var installEl = document.querySelector('a[href="#install"]');
   var els = document.querySelectorAll('a, button');
   for (var i = 0; i < els.length; i++) {
     var t = (els[i].textContent || '').trim();
-    if (!demoEl && /^(live demo|demo|try demo)$/i.test(t)) demoEl = els[i];
-    if (!installEl && /^(install|install free|add to forms|get started)$/i.test(t)) installEl = els[i];
+    if (!demoEl && /live\s*demo/i.test(t)) demoEl = els[i];
   }
   if (demoEl && installEl) {
     var demoColor = window.getComputedStyle(demoEl).color;
