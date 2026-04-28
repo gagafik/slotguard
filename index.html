@@ -44,16 +44,22 @@ function _fixSlotGuardDom() {
       }
     }
   });
-  var demoEl = null;
   var installEl = document.querySelector('a[href="#install"]');
-  var els = document.querySelectorAll('a, button');
-  for (var i = 0; i < els.length; i++) {
-    var t = (els[i].textContent || '').trim();
-    if (!demoEl && /live\s*demo/i.test(t)) demoEl = els[i];
-  }
-  if (demoEl && installEl) {
-    var demoColor = window.getComputedStyle(demoEl).color;
-    installEl.style.setProperty('color', demoColor, 'important');
+  if (installEl) {
+    // Live Demo is a <div> with color: var(--bg). Read --bg from :root computed styles.
+    var bgColor = window.getComputedStyle(document.documentElement).getPropertyValue('--bg').trim();
+    if (bgColor) {
+      installEl.style.setProperty('color', bgColor, 'important');
+    } else {
+      // Fallback: find the Live Demo div and copy its computed color
+      var allEls = document.querySelectorAll('*');
+      for (var i = 0; i < allEls.length; i++) {
+        if (/LIVE DEMO/.test(allEls[i].textContent) && allEls[i].children.length === 0) {
+          installEl.style.setProperty('color', window.getComputedStyle(allEls[i]).color, 'important');
+          break;
+        }
+      }
+    }
   }
 }
 
