@@ -100,7 +100,7 @@ function _fixSlotGuardDom() {
       var textSub = c.dark ? 'rgba(255,255,255,0.55)' : '#666';
       var textFeat = c.dark ? 'rgba(255,255,255,0.85)' : '#444';
       var btnBg = c.dark ? 'var(--bg,#F5F1EB)' : (c.label === 'Free' ? 'transparent' : 'var(--ink,#1C1B19)');
-      var btnColor = c.dark ? 'var(--ink,#1C1B19)' : (c.label === 'Free' ? 'var(--ink,#1C1B19)' : 'var(--bg,#F5F1EB)');
+      var btnColor = c.dark ? 'var(--ink,#1C1B19)' : (c.label === 'Free' ? '#1C1B19' : 'var(--bg,#F5F1EB)');
       var btnBorder = (c.label === 'Free') ? '1.5px solid rgba(0,0,0,0.2)' : 'none';
       var target = c.href.startsWith('http') ? ' target="_blank"' : '';
       var badgeHtml = c.badge ? ('<div style="position:absolute;top:-12px;left:20px;background:#C84B1A;color:#fff;font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:4px 10px;border-radius:999px;">' + c.badge + '</div>') : '';
@@ -130,12 +130,12 @@ function _fixSlotGuardDom() {
       '</div>';
 
     if (faqEl) {
+      // Walk up until we're a direct child of body
       var anchor = faqEl;
-      for (var i = 0; i < 8; i++) {
-        if (anchor.parentElement && anchor.parentElement !== document.body) anchor = anchor.parentElement;
-        else break;
+      while (anchor.parentElement && anchor.parentElement !== document.body) {
+        anchor = anchor.parentElement;
       }
-      anchor.parentElement.insertBefore(pricing, anchor);
+      document.body.insertBefore(pricing, anchor);
     } else {
       document.body.appendChild(pricing);
     }
